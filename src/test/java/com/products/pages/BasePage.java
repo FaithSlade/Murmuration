@@ -18,6 +18,9 @@ public abstract class BasePage {
     @FindBy(xpath = "//a[@class='shopping_cart_link']//span[@class='shopping_cart_badge']")
     public WebElement shoppingCartBadge;
 
+    @FindBy(xpath = "//a[@class='shopping_cart_link']")
+    public WebElement shoppingCartBadgeEmpty;
+
     @FindBy(xpath = "//div[@class='bm-burger-button']")
     public WebElement menuButton;
 

@@ -32,9 +32,10 @@ public class AddedAndRemoved {
         productPage.shoppingCartLink.click();
     }
 
-    @Then("the shopping cart should show all added items number in the cart")
-    public void the_shopping_cart_should_show_all_added_items_number_in_the_cart() {
-    //
+    @Then("the shopping cart should show all added items {int} in the cart")
+    public void the_shopping_cart_should_show_all_added_items_in_the_cart(Integer number) {
+        String expectedNum = Integer.toString(number);
+        Assert.assertEquals(expectedNum,productPage.shoppingCartBadge.getText());
     }
 
     @When("user click remove items button")
@@ -47,6 +48,6 @@ public class AddedAndRemoved {
 
     @Then("the shopping cart should empty no items")
     public void the_shopping_cart_should_empty_no_items() {
-        //
+        Assert.assertTrue(productPage.shoppingCartBadgeEmpty.getText().isEmpty());
     }
 }
