@@ -20,6 +20,7 @@ public class ProductPage extends BasePage {
 
     @FindBy(xpath = "//div[@class='inventory_item_img']")
     public List<WebElement> itemsImage;
+
     @FindBy(xpath = "//button[.='Add to cart']")
     public List<WebElement> addToCartButton;
 
