@@ -34,6 +34,7 @@ public class LoginSwagLabs {
     @When("user click log in button")
     public void user_click_log_in_button() {
         loginPage.loginButton.click();
+
     }
 
     @Then("user should see {string} message locked out")
