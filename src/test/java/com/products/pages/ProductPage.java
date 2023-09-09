@@ -15,15 +15,11 @@ public class ProductPage extends BasePage {
         PageFactory.initElements(Driver.getDriver(), this);
     }
 
-    @FindBy(id = "back-to-products")
-    public WebElement backToProductsButton;
+    @FindBy(xpath = "//div[@class='inventory_item_name']")
+    public List<WebElement> itemsName;
 
-    @FindBy(xpath = "//img[@class='inventory_item_img']")
-    public List<WebElement> itemsImg;
-
-    @FindBy(xpath = "//div[@class='inventory_details_desc large_size']")
-    public WebElement productsDetails;
-
+    @FindBy(xpath = "//div[@class='inventory_item_img']")
+    public List<WebElement> itemsImage;
     @FindBy(xpath = "//button[.='Add to cart']")
     public List<WebElement> addToCartButton;
 
@@ -31,112 +27,137 @@ public class ProductPage extends BasePage {
     public List<WebElement> removeButton;
 
     @FindBy(xpath = "//div[@class='inventory_item_price']")
-    public List<WebElement> itemsPrice;
-
-    @FindBy(xpath = "//span[@class='title']")
-    public WebElement productsTitle;
-
-    @FindBy(xpath = "//div[@class='inventory_item']//a//div")
-    public List<WebElement> actualItemSort;
+    public List<WebElement> itemsPrices;
 
     @FindBy(className = "product_sort_container")
     public WebElement sortedButton;
 
-    @FindBy(xpath = "//div[@class='inventory_item_name']")
-    public List<WebElement> itemsName;
+    /**
+     * WebElement on product detail page
+     */
+    @FindBy(id = "back-to-products")
+    public WebElement backToProductsButton;
 
-    @FindBy(xpath = "//div[@class='inventory_item_img']")
-    public List<WebElement> itemsImage;
-
+    @FindBy(xpath = "//div[@class='inventory_details_desc large_size']")
+    public WebElement productsDetails;
 
     /**
-     * - Convert List<String> and List<WebElement> to verify Sorted items by name
+     * Method will sort Items by price in AscendingOrder
+     * This method will take List<WebElement> and convert to double[]
+     * Used double[] -> because sort() method
+     * with substring() -> it will take $dollar sign off
+     * with parseDouble() -> it will convert to String text
      */
-    public String [] expectedSortedItemsByNameAscendingOrder() {
-        String[] arr = new String[itemsName.size()];
-        for (int i = 0; i < itemsName.size(); i++) {
-            arr[i] = itemsName.get(i).getText();
-        }
-        Arrays.sort(arr);
-        return arr;
-    }
-
-    public String [] expectedSortedItemsByNameDescendingOrder() {
-        String[] arr = new String[itemsName.size()];
-        for (int i = 0; i < itemsName.size(); i++) {
-            arr[i] = itemsName.get(i).getText();
-        }
-        Arrays.sort(arr);
-        String [] descArr = reverse(arr,arr.length);
-        return descArr;
-    }
-
-    public String[] reverse(String a[], int n) {
-        String[] b = new String[n];
-        int j = n;
-        for (int i = 0; i < n; i++) {
-            b[j - 1] = a[i];
-            j = j - 1;
-        }
-        return  b;
-    }
-
-    public String[] actualSortedItemsByName() {
-        String[] arr = new String[itemsName.size()];
-        for (int i = 0; i < itemsName.size(); i++) {
-            arr[i] = itemsName.get(i).getText();
-        }
-        return arr;
-    }
-
-
-
-    /**
-     * - Convert List<Double> and List<WebElement> to verify Sorted items by price
-     */
-
     public double[] expectedSortedItemsByPriceAscendingOrder() {
-        double[] arr = new double[itemsPrice.size()];
-        for (int i = 0; i < itemsPrice.size(); i++) {
-            String text = itemsPrice.get(i).getText().substring(1);
-            double value = Double.parseDouble(text);
-            arr[i] = value;
+        double[] price = new double[itemsPrices.size()];
+        for (int i = 0; i < itemsPrices.size(); i++) {
+            String text = itemsPrices.get(i).getText().substring(1);
+            double eachValue = Double.parseDouble(text);
+            price[i] = eachValue;
         }
-        Arrays.sort(arr);
-        return arr;
+        Arrays.sort(price);
+        return price;
     }
-
+    /**
+     * Method will sort Items by price in DescendingOrder
+     * This method will take List<WebElement> and convert to double[]
+     * Used double[] -> because sort() method
+     * with substring() -> it will take $dollar sign off
+     * with parseDouble() -> it will convert to String text
+     *** After sorted price -> used reverse() method for DescendingOrder
+     */
     public double[] expectedSortedItemsByPriceDescendingOrder() {
-        double[] arr = new double[itemsPrice.size()];
-        for (int i = 0; i < itemsPrice.size(); i++) {
-            String text = itemsPrice.get(i).getText().substring(1);
+        double[] price = new double[itemsPrices.size()];
+        for (int i = 0; i < itemsPrices.size(); i++) {
+            String text = itemsPrices.get(i).getText().substring(1);
             double value = Double.parseDouble(text);
-            arr[i] = value;
+            price[i] = value;
         }
-        Arrays.sort(arr);
-        double [] descArr = reverse(arr,arr.length);
-        return descArr;
+        Arrays.sort(price);
+        double[] descendingPrice = reverseDouble(price, price.length);
+        return descendingPrice;
     }
-
-    public double[] reverse(double a[], int n) {
-        double[] b = new double[n];
-        int j = n;
-        for (int i = 0; i < n; i++) {
-            b[j - 1] = a[i];
-            j = j - 1;
+    /**
+     * Method will return a new double[] with the elements in reverse order.
+     */
+    public double[] reverseDouble(double arr[], int numberOfLength) {
+        double[] reverseNum = new double[numberOfLength];
+        int temp = numberOfLength;
+        for (int i = 0; i < numberOfLength; i++) {
+            reverseNum[temp - 1] = arr[i]; //first element will assign to last index
+            temp = temp - 1;
         }
-        return  b;
+        return reverseNum;
     }
-
+    /**
+     * This method will get text values of elements from List<WebElement>
+     * Then store and return in double[]
+     * Ideal -> for comparison with expectedSortedItemsByPrice() method
+     */
     public double[] actualSortedItemsByPrice() {
-        double[] arr = new double[itemsPrice.size()];
-        for (int i = 0; i < itemsPrice.size(); i++) {
-            String text = itemsPrice.get(i).getText().substring(1);
+        double[] price = new double[itemsPrices.size()];
+        for (int i = 0; i < itemsPrices.size(); i++) {
+            String text = itemsPrices.get(i).getText().substring(1);
             double value = Double.parseDouble(text);
-            arr[i] = value;
+            price[i] = value;
         }
-        return arr;
+        return price;
     }
+    /**
+     * Method will sort Items by name in AscendingOrder
+     * This method will take List<WebElement> and convert to String[]
+     * Used String[] -> because sort() method
+     */
+    public String[] expectedSortedItemsByNameAscendingOrder() {
+        String[] itemName = new String[itemsName.size()];
+        for (int i = 0; i < itemsName.size(); i++) {
+            itemName[i] = itemsName.get(i).getText();
+        }
+        Arrays.sort(itemName);
+        return itemName;
+    }
+    /**
+     * Method will sort Items by name in DescendingOrder
+     * This method will take List<WebElement> and convert to String[]
+     * Used String[] -> because sort() method
+     *** After sorted price -> used reverseString() method for DescendingOrder
+     */
+    public String[] expectedSortedItemsByNameDescendingOrder() {
+        String[] itemName = new String[itemsName.size()];
+        for (int i = 0; i < itemsName.size(); i++) {
+            itemName[i] = itemsName.get(i).getText();
+        }
+        Arrays.sort(itemName);
+        String[] descendingName = reverseString(itemName, itemName.length);
+        return descendingName;
+    }
+    /**
+     * Method will return a new String[] with the elements in reverse order.
+     */
+    public String[] reverseString(String arr[], int numberOfLength) {
+        String[] reverseStr = new String[numberOfLength];
+        int temp = numberOfLength;
+        for (int i = 0; i < numberOfLength; i++) {
+            reverseStr[temp - 1] = arr[i]; //first element will assign to last index
+            temp = temp - 1;
+        }
+        return reverseStr;
+    }
+    /**
+     * This method will get text values of elements from List<WebElement>
+     * Then store and return in String[]
+     * Ideal -> for comparison with expectedSortedItemsByName() method
+     */
+    public String[] actualSortedItemsByName() {
+        String[] itemName = new String[itemsName.size()];
+        for (int i = 0; i < itemsName.size(); i++) {
+            itemName[i] = itemsName.get(i).getText();
+        }
+        return itemName;
+    }
+
+
+
 
 
     public void eachItemClickByName() {
@@ -156,7 +177,6 @@ public class ProductPage extends BasePage {
             backToProductsButton.click();
         }
     }
-
 
 
 }
