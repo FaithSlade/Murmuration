@@ -8,14 +8,17 @@ import org.openqa.selenium.support.PageFactory;
 import java.util.ArrayList;
 import java.util.List;
 
-public class ProductPage extends BasePage{
+public class ProductPage extends BasePage {
 
-    public ProductPage(){
-        PageFactory.initElements(Driver.getDriver(),this);
+    public ProductPage() {
+        PageFactory.initElements(Driver.getDriver(), this);
     }
 
-    @FindBy(xpath = "//div[@class='inventory_item_name']")
+    @FindBy(xpath = "//div[@class='inventory_item_label']//a")
     public List<WebElement> itemsName;
+
+    @FindBy(id = "back-to-products")
+    public WebElement backToProductsButton;
 
     @FindBy(xpath = "//img[@class='inventory_item_img']")
     public List<WebElement> itemsImg;
@@ -41,21 +44,39 @@ public class ProductPage extends BasePage{
     @FindBy(className = "product_sort_container")
     public WebElement sortedButton;
 
-    public List<String> SortedItems(){
+
+    /**
+     * - Convert List<String> and List<WebElement> to verify Sorted items by name
+     */
+    public List<String> SortedItems() {
         List<String> actualSorted = new ArrayList<>();
-        for (WebElement eachItem:actualItemSort) {
+        for (WebElement eachItem : actualItemSort) {
             actualSorted.add(eachItem.getText());
         }
         return actualSorted;
     }
 
-    public List<Double> SortedItemsByPrice(){
+    /**
+     * - Convert List<Double> and List<WebElement> to verify Sorted items by price
+     */
+    public List<Double> SortedItemsByPrice() {
         List<Double> actualSortedPrice = new ArrayList<>();
-        for (WebElement eachItem:itemsPrice) {
+        for (WebElement eachItem : itemsPrice) {
             String text = eachItem.getText().substring(1);
             double value = Double.parseDouble(text);
             actualSortedPrice.add(value);
         }
         return actualSortedPrice;
     }
+
+    public WebElement EachItemClickByName() {
+        WebElement lastItem = null;
+        for (int i = 0; i < itemsName.size(); i++) {
+            WebElement eachItem = itemsName.get(i);
+            eachItem.click();
+            lastItem = eachItem; // Store last clicked item
+        }
+        return lastItem;
+    }
+
 }
