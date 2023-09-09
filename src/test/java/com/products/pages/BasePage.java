@@ -1,6 +1,6 @@
 package com.products.pages;
 
-import com.products.utilities.ConfigurationReader;
+
 import com.products.utilities.Driver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
@@ -12,8 +12,8 @@ public abstract class BasePage {
         PageFactory.initElements(Driver.getDriver(),this);
     }
 
-    @FindBy(className = "shopping_cart_link")
-    public WebElement shoppingCart;
+    @FindBy(xpath = "//a[@class='shopping_cart_link']")
+    public WebElement shoppingCartLink;
 
     @FindBy(xpath = "//a[@class='shopping_cart_link']//span[@class='shopping_cart_badge']")
     public WebElement shoppingCartBadge;
@@ -21,14 +21,14 @@ public abstract class BasePage {
     @FindBy(xpath = "//a[@class='shopping_cart_link']")
     public WebElement shoppingCartBadgeEmpty;
 
-    @FindBy(xpath = "//div[@class='bm-burger-button']")
+    @FindBy(xpath = "//button[@id='react-burger-menu-btn']")
     public WebElement menuButton;
 
-    @FindBy(id = "inventory_sidebar_link")
-    public WebElement allItemLink;
+    @FindBy(xpath = "//button[@id='react-burger-cross-btn']")
+    public WebElement closeMenuButton;
 
-    @FindBy(xpath = "//a[@class='shopping_cart_link']")
-    public WebElement shoppingCartLink;
+    @FindBy(id = "inventory_sidebar_link")
+    public WebElement allItemsLink;
 
     @FindBy(id = "about_sidebar_link")
     public WebElement aboutLink;

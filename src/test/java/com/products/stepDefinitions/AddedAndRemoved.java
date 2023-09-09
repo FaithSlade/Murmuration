@@ -12,6 +12,7 @@ import org.openqa.selenium.WebElement;
 import java.util.List;
 
 public class AddedAndRemoved {
+
     ProductPage productPage = new ProductPage();
     LoginPage loginPage = new LoginPage();
 

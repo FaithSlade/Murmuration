@@ -36,7 +36,6 @@ public class Checkout_infoPage extends BasePage{
     @FindBy(xpath = "//button[.='Add to cart']")
     public List<WebElement> addToCartButton;
 
-
     /**
      * add List<WebElement> random using class(java)
      */

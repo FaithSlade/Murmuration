@@ -63,9 +63,7 @@ public class SortedProduct {
         Assert.assertEquals(0,count);
     }
 
-
-
-    double[] expectedAscendingOrder = new double[productPage.itemsPrice.size()];
+    double[] expectedAscendingOrder = new double[productPage.itemsPrices.size()];
 
     @When("user select sorted by price {string} and click")
     public void user_select_sorted_by_price_and_click(String textPrice) {
@@ -86,7 +84,7 @@ public class SortedProduct {
         Assert.assertEquals(0,count);
     }
 
-    double [] expectedDescendingOrder = new double[productPage.itemsPrice.size()];
+    double [] expectedDescendingOrder = new double[productPage.itemsPrices.size()];
     @When("user select sorted {string} and click")
     public void user_select_sorted_and_click(String textPrice) {
         expectedDescendingOrder = productPage.expectedSortedItemsByPriceDescendingOrder();
