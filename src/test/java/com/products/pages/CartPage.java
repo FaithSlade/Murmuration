@@ -1,5 +1,6 @@
 package com.products.pages;
 
+import com.products.utilities.BrowserUtil;
 import com.products.utilities.Driver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
@@ -44,14 +45,20 @@ public class CartPage extends BasePage{
     /**
      * remove List<WebElement> random using class(java)
      */
-    public WebElement removeRandomElement (List<WebElement> removeItemsButton){
+    public void removeRandomElement (List<WebElement> removeItemsButton,int numberOfClick){
         if(removeItemsButton.isEmpty()){
-            return null;
+            return;
         }
         Random random = new Random();
-        int randomIndex = random.nextInt(removeItemsButton.size()); // Generate a random index
-        WebElement removeElement = removeItemsButton.remove(randomIndex); // Remove the element and store
-      return removeElement;
+        if(numberOfClick>removeItemsButton.size()){
+            numberOfClick=removeItemsButton.size();
+        }
+        for (int i = 0; i < numberOfClick; i++) {
+            int randomIndex = random.nextInt(removeItemsButton.size()); // add a random index
+            WebElement element = removeItemsButton.get(randomIndex);
+            element.click();
+            BrowserUtil.waitFor(3);
+        }
     }
 
 }

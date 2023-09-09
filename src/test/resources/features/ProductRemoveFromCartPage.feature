@@ -1,4 +1,4 @@
-@wip
+
 Feature: user can can remove the item on the Cart page
 
   Background: For all scenario, user is on the Cart page
@@ -9,8 +9,9 @@ Feature: user can can remove the item on the Cart page
   Scenario: user can can remove all of the item from the cart
     When user click remove items button
     Then the shopping cart should empty no items
-
+    And user should be able to click continue shopping button
 
   Scenario: user can can remove some item from the cart
     When user click remove 3 items from remove button
     Then the shopping cart should have 3 items left
+    And user should be able to click checkout button

@@ -26,4 +26,6 @@ public class Checkout_overviewPage extends BasePage {
 
     @FindBy (id="finish")
     public WebElement finishButton;
+
+
 }

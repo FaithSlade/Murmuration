@@ -38,4 +38,7 @@ public abstract class BasePage {
 
     @FindBy(id = "reset_sidebar_link")
     public WebElement resetLink;
+
+    @FindBy (className="title")
+    public WebElement title;
 }

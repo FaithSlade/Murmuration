@@ -16,20 +16,15 @@ public class ProductDetails {
     ProductPage productPage = new ProductPage();
 
 
-    @When("user click on the product name")
-    public void user_click_on_the_product_name() {
-        productPage.EachItemClickByName().click();
+    @When("user click on the product name and should see the product details on product details page")
+    public void user_click_on_the_product_name_and_user_should_see_the_product_details_on_product_details_page() {
+        productPage.eachItemClickByName();
     }
 
-    @Then("user should see the product details on product details page")
-    public void user_should_see_the_product_details_on_product_details_page() {
-        Assert.assertTrue(productPage.productsDetails.isDisplayed());
-        productPage.backToProductsButton.click();
-    }
 
-    @When("user click on the product image")
-    public void user_click_on_the_product_image() {
-
+    @When("user click on the product image and should see the product details on product details page")
+    public void user_click_on_the_product_image_and_user_should_see_the_product_details_on_product_details_page() {
+        productPage.eachItemClickByImage();
     }
 
 
