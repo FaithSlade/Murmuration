@@ -5,7 +5,7 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 
-public class UserInfoPage {
+public class UserInfoPage extends BasePage{
     public UserInfoPage(){
         PageFactory.initElements(Driver.getDriver(),this);
     }
@@ -25,9 +25,15 @@ public class UserInfoPage {
     @FindBy(id = "cancel")
     public WebElement cancelButton;
 
-    @FindBy(id = "cancel")
+    @FindBy(xpath = "//button[@class='error-button']")
     public WebElement closeErrorButton;
 
-    @FindBy(xpath = "//button[@class='error-button']")
-    public WebElement errorMessageInfo;
+    @FindBy(xpath = "//h3[.='Error: Last Name is required']")
+    public WebElement lastNameErrorMessage;
+
+    @FindBy(xpath = "//h3[.='Error: First Name is required']")
+    public WebElement firstErrorMessage;
+
+    @FindBy(xpath = "//h3[.='Error: Postal Code is required']")
+    public WebElement zipCodeErrorMessage;
 }

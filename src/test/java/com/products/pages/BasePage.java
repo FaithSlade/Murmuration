@@ -39,6 +39,6 @@ public abstract class BasePage {
     @FindBy(id = "reset_sidebar_link")
     public WebElement resetLink;
 
-    @FindBy (className="title")
+    @FindBy (xpath ="//span[@class='title']")
     public WebElement title;
 }
