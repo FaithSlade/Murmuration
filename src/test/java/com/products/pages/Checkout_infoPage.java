@@ -47,7 +47,5 @@ public class Checkout_infoPage extends BasePage{
             element.click();
             BrowserUtil.waitFor(3);
         }
-
-
     }
 }
