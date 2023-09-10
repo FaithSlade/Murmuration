@@ -15,13 +15,13 @@ import java.util.List;
 public class ProductDetails {
     ProductPage productPage = new ProductPage();
 
-    @When("user click on the product name then should see the product details on product details page")
-    public void user_click_on_the_product_name_then_should_see_the_product_details_on_product_details_page() {
+    @Then("user click on the product name then verify product details on product details page")
+    public void user_click_on_the_product_name_then_verify_product_details_on_product_details_page() {
         productPage.eachItemClickByName();
     }
 
-    @When("user click on the product image then should see the product details on product details page")
-    public void user_click_on_the_product_image_then_should_see_the_product_details_on_product_details_page() {
+    @Then("user click on the product image then verify product details on product details page")
+    public void user_click_on_the_product_image_then_verify_product_details_on_product_details_page() {
         productPage.eachItemClickByImage();
     }
 }

@@ -1,7 +1,8 @@
 
-Feature: As a user should be able to sorted the product
-  AC: Sorted product by name in ascending order and descending order
-  Sorted product by price in ascending order and descending order
+Feature: On the Products page, verify products can be sorted by name and price
+  AC: As a user should be able to sorted the product
+      Sorted product by name in ascending order and descending order
+      Sorted product by price in ascending order and descending order
 
   Background: For all scenario, user is on the product page
     Given user is on the product page

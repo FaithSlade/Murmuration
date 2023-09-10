@@ -1,5 +1,7 @@
 
-Feature: As a user, I should be able to login using any og the credentials provided
+Feature: As a user, I should be able to login using any of the credentials provided
+AC: user should enter valid credentials
+    user should enter invalid credentials
 
   Background: For all scenario, user is on the login page of Swag Labs
     Given user is on the login page of the Swag Labs

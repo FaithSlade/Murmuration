@@ -1,5 +1,5 @@
 
-Feature: user can can remove the item on the Cart page
+Feature: On the your cart page, verify that products can be removed from the cart
 
   Background: For all scenario, user is on the Cart page
     Given user is on the product page
