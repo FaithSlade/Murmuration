@@ -6,6 +6,7 @@ import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 
 import java.util.List;
+import java.util.Random;
 
 public class TotalPricesAmountPage extends BasePage{
 
@@ -31,16 +32,59 @@ public class TotalPricesAmountPage extends BasePage{
     @FindBy (id ="cancel")
     public WebElement cancelButton;
 
+    @FindBy(xpath = "//button[.='Add to cart']")
+    public List<WebElement> addToCartButton;
+
+
     /**
      *
      */
-    public double calculateTotalPrice(List<WebElement> priceList){
+    public String calculateTotalPriceOnCart(List<WebElement> priceList,int numberOfClick){
+        CartPage.addRandomElement(addToCartButton,numberOfClick);
+
         double totalPrice = 0.0;
-        for (WebElement each: priceList){
-            String priceText = each.getText();
-            double itemPrice = Double.parseDouble(priceText);
-            totalPrice += itemPrice;
+           for(WebElement eachPrice: priceList){
+               if (eachPrice.isDisplayed()){
+                   String priceText = eachPrice.getText();
+                   String priceWithOut$ = priceText.substring(1);
+                   double itemPrice = Double.parseDouble(priceWithOut$);
+                   totalPrice += itemPrice;
+               }
         }
-        return totalPrice;
+        String totalPriceStr = String.valueOf(totalPrice);//convert double -> String
+        int decimal = totalPriceStr.indexOf('.');
+        if(decimal != -1 && decimal < totalPriceStr.length()-3){
+            return totalPriceStr.substring(0,decimal+3);
+        }
+           return  totalPriceStr;
+    }
+
+    /**
+     *
+     */
+    public String actualItemTotal(WebElement itemTotal){
+        String str = itemTotal.getText();
+
+        int dollarSign = str.indexOf('$');
+        String actualTotalPrice = str.substring(dollarSign+1);
+
+        int decimal = str.indexOf('.');
+        if(decimal != -1 && decimal < str.length()-3){
+            return str.substring(dollarSign+1,decimal+3);
+        }
+        return actualTotalPrice;
+    }
+
+    public String takeOffDollarSignAndLimitDecimal(WebElement tax){
+        String numberWithText = tax.getText();
+
+        int dollarSign = numberWithText.indexOf('$');
+        String actualTotalPrice = numberWithText.substring(dollarSign+1);
+
+        int decimal = numberWithText.indexOf('.');
+        if(decimal != -1 && decimal < numberWithText.length()-3){
+            return numberWithText.substring(dollarSign+1,decimal+3);
+        }
+        return actualTotalPrice;
     }
 }

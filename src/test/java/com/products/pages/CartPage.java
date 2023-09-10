@@ -82,7 +82,7 @@ public class CartPage extends BasePage{
      * This loop will iterate base on numberOfClick times.
      * Then generates a random index from List<WebElement>, and used index to select an element.
      */
-    public void addRandomElement (List<WebElement> addToCartButton,int numberOfClick) {
+    public static void addRandomElement (List<WebElement> addToCartButton,int numberOfClick) {
         if (numberOfClick > addToCartButton.size()) {
             numberOfClick = addToCartButton.size();
         }
