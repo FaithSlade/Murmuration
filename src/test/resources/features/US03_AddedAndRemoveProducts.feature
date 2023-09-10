@@ -1,5 +1,6 @@
 
-Feature: As a user can added and removed the product to the cart
+Feature: On the Products page, verify products can be added/removed to the cart
+  AC: As a user can added and removed the product to the cart
 
   Background: For all scenario, user is on the product page
     Given user is on the product page
