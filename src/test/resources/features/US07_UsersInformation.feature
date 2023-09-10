@@ -2,7 +2,7 @@
 Feature: On the Checkout: Your Information page, verify that all fields are required.
   AC: user should be able to enter First name, Last name, and Zipcode as required
 
-  Background: For all scenario, user is on the Cart page
+  Background: For all scenario, user is on the Checkout: Your Information page
     Given user is on the product page
     When user randomly add 4 items and click add to cart
     And user click on the shopping cart top right icon
