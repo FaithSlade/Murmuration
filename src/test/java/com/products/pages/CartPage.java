@@ -51,6 +51,9 @@ public class CartPage extends BasePage{
     @FindBy(name = "remove-test.allthethings()-t-shirt-(red)")
     public WebElement allThingsRemove;
 
+    @FindBy(xpath = "//button[.='Add to cart']")
+    public List<WebElement> addToCartButton;
+
     /**
      * This method will remove List<WebElement> randomly by using Random class
      * if condition to ensure that I am not click more elements than are available.
@@ -68,6 +71,25 @@ public class CartPage extends BasePage{
         for (int i = 0; i < numberOfClick; i++) {
             int randomIndex = random.nextInt(removeItemsButton.size()); // add a random index
             WebElement element = removeItemsButton.get(randomIndex); //retrieve webElement from index
+            element.click();
+            //BrowserUtil.waitFor(2); just for check to see it click
+        }
+    }
+
+    /**
+     * This method will add List<WebElement> randomly by using Random class
+     * if condition to ensure that I am not click more elements than are available.
+     * This loop will iterate base on numberOfClick times.
+     * Then generates a random index from List<WebElement>, and used index to select an element.
+     */
+    public void addRandomElement (List<WebElement> addToCartButton,int numberOfClick) {
+        if (numberOfClick > addToCartButton.size()) {
+            numberOfClick = addToCartButton.size();
+        }
+        Random random = new Random();
+        for (int i = 0; i < numberOfClick; i++) {
+            int randomIndex = random.nextInt(addToCartButton.size()); // add a random index
+            WebElement element = addToCartButton.get(randomIndex); //retrieve webElement from index
             element.click();
             //BrowserUtil.waitFor(2); just for check to see it click
         }
