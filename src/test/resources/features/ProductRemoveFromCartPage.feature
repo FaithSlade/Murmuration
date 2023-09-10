@@ -3,7 +3,7 @@ Feature: user can can remove the item on the Cart page
 
   Background: For all scenario, user is on the Cart page
     Given user is on the product page
-    When user click items Add to cart button
+    When user click all items Add to cart button
     And user click on the shopping cart top right icon
 
   Scenario: user can can remove all of the item from the cart
