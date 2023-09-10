@@ -79,6 +79,7 @@ public class ProductPage extends BasePage {
     }
     /**
      * Method will return a new double[] with the elements in reverse order.
+     * numberOfLength => double[] price.length
      */
     public double[] reverseDouble(double[] numArr, int numberOfLength) {
         double[] reverseNum = new double[numberOfLength];
@@ -90,6 +91,7 @@ public class ProductPage extends BasePage {
         return reverseNum;
     }
     /**
+     * This method is convert List<WebElement> -> double[]
      * This method will get text values of elements from List<WebElement>
      * Then store and return in double[]
      * Ideal -> for comparison with expectedSortedItemsByPrice() method
@@ -133,6 +135,7 @@ public class ProductPage extends BasePage {
     }
     /**
      * Method will return a new String[] with the elements in reverse order.
+     * numberOfLength => String[] itemName.length
      */
     public String[] reverseString(String[] arr, int numberOfLength) {
         String[] reverseStr = new String[numberOfLength];
@@ -144,7 +147,8 @@ public class ProductPage extends BasePage {
         return reverseStr;
     }
     /**
-     * This method will get text values of elements from List<WebElement>
+     * This method is convert List<WebElement> -> String[]
+     * It will get text values of elements from List<WebElement>
      * Then store and return in String[]
      * Ideal -> for comparison with expectedSortedItemsByName() method
      */

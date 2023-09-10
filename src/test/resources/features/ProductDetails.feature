@@ -6,7 +6,6 @@ Feature: user can verify the product detail on the product detail page
   Background: For all scenario, user is on the product page
     Given user is on the product page
 
-
   Scenario: user be able to click on the product on product name
     When user click on the product name then should see the product details on product details page
 
