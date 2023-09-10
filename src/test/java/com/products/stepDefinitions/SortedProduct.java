@@ -15,68 +15,63 @@ import java.util.List;
 public class SortedProduct {
     LoginPage loginPage = new LoginPage();
     ProductPage productPage = new ProductPage();
-    Select sortedBtn = new Select(productPage.sortedButton);
+    Select select = new Select(productPage.sortedButton);
 
     @When("user click sorted button")
     public void user_click_sorted_button() {
         loginPage.UserLogin();
     }
 
-
-    String [] ascArrByName = new String[productPage.itemsName.size()];
     @When("user select sorted by name {string} and click")
-    public void user_select_sorted_by_name_and_click(String textAtoZ) {
-        ascArrByName = productPage.expectedSortedItemsByNameAscendingOrder();
-        sortedBtn.selectByVisibleText(textAtoZ);
+    public void user_select_sorted_by_name_and_click(String AtoZText) {
+        select.selectByVisibleText(AtoZText);
     }
 
-    @Then("items should sorted in ascending order")
-    public void items_should_sorted_in_ascending_order() {
-        int count = 0;
-        for (int i = 0; i < ascArrByName.length; i++) {
-            if (ascArrByName[i].equals(productPage.actualSortedItemsByName()[i])){
-                //If the elements of arr are same count will not increase, and if count will be 0 at the end of loop it means arr<ys are same order.
-            }else{
-                count++;
-            }
-        }
-        Assert.assertEquals(0,count);
-    }
-
-    String [] descArrByName = new String[productPage.itemsName.size()];
     @When("user select sorted by {string} and click")
     public void user_select_sorted_by_and_click(String textZtoA) {
-        descArrByName = productPage.expectedSortedItemsByNameDescendingOrder();
-        sortedBtn.selectByVisibleText(textZtoA);
+        select.selectByVisibleText(textZtoA);
     }
-
-    @Then("items should sorted in descending order")
-    public void items_should_sorted_in_descending_order() {
-        int count = 0;
-        for (int i = 0; i < descArrByName.length; i++) {
-            if (descArrByName[i].equals(productPage.actualSortedItemsByName()[i])){
-                //If the elements of arr are same count will not increase, and if count will be 0 at the end of loop it means arr<ys are same order.
-            }else{
-                count++;
-            }
-        }
-        Assert.assertEquals(0,count);
-    }
-
-    double[] expectedAscendingOrder = new double[productPage.itemsPrices.size()];
 
     @When("user select sorted by price {string} and click")
     public void user_select_sorted_by_price_and_click(String textPrice) {
-        expectedAscendingOrder = productPage.expectedSortedItemsByPriceAscendingOrder();
-        sortedBtn.selectByVisibleText(textPrice);
+        select.selectByVisibleText(textPrice);
     }
 
-    @Then("items should sorted by price in ascending order")
-    public void items_should_sorted_in_by_price() {
+    @When("user select sorted {string} and click")
+    public void user_select_sorted_and_click(String textPrice) {
+        select.selectByVisibleText(textPrice);
+    }
+
+    String [] expectedSortByNameAsc = new String[productPage.itemsName.size()];
+    String [] expectedSortByNameDesc = new String[productPage.itemsName.size()];
+    /**
+     * count => will keep track of any elements that are not in ascending order.
+     * If the elements of arr are same count will not increase,
+     * If count still be 0 at the end of loop => arrays element are same order.
+     */
+    @Then("items should sorted in ascending order")
+    public void items_should_sorted_in_ascending_order() {
+        expectedSortByNameAsc = productPage.expectedSortedItemsByNameAscendingOrder();
         int count = 0;
-        for (int i = 0; i < expectedAscendingOrder.length; i++) {
-            if (expectedAscendingOrder[i] == productPage.actualSortedItemsByPrice()[i]){
-                //If the elements of arr are same count will not increase, and if count will be 0 at the end of loop it means arr<ys are same order.
+        for (int i = 0; i < expectedSortByNameAsc.length; i++) {
+            if (expectedSortByNameAsc[i].equals(productPage.actualSortedItemsByName()[i])){
+            }else{
+                count++;
+            }
+        }
+        Assert.assertEquals(0,count);
+    }
+    /**
+     * count => will keep track of any elements that are not in ascending order.
+     * If the elements of arr are same count will not increase,
+     * If count still be 0 at the end of loop => arrays element are same order.
+     */
+    @Then("items should sorted in descending order")
+    public void items_should_sorted_in_descending_order() {
+        expectedSortByNameDesc = productPage.expectedSortedItemsByNameDescendingOrder();
+        int count = 0;
+        for (int i = 0; i < expectedSortByNameDesc.length; i++) {
+            if (expectedSortByNameDesc[i].equals(productPage.actualSortedItemsByName()[i])){
             }else{
                 count++;
             }
@@ -84,20 +79,36 @@ public class SortedProduct {
         Assert.assertEquals(0,count);
     }
 
-    double [] expectedDescendingOrder = new double[productPage.itemsPrices.size()];
-    @When("user select sorted {string} and click")
-    public void user_select_sorted_and_click(String textPrice) {
-        expectedDescendingOrder = productPage.expectedSortedItemsByPriceDescendingOrder();
-        sortedBtn.selectByVisibleText(textPrice);
+    double[] expectedSortByPriceAsc = new double[productPage.itemsPrices.size()];
+    double[] expectedSortByPriceDesc = new double[productPage.itemsPrices.size()];
+    /**
+     * count => will keep track of any elements that are not in ascending order.
+     * If the elements of arr are same count will not increase,
+     * If count still be 0 at the end of loop => arrays element are same order.
+     */
+    @Then("items should sorted by price in ascending order")
+    public void items_should_sorted_in_by_price() {
+        expectedSortByPriceAsc = productPage.expectedSortedItemsByPriceAscendingOrder();
+        int count = 0;
+        for (int i = 0; i < expectedSortByPriceAsc.length; i++) {
+            if (expectedSortByPriceAsc[i] == productPage.actualSortedItemsByPrice()[i]){
+            }else{
+                count++;
+            }
+        }
+        Assert.assertEquals(0,count);
     }
-
+    /**
+     * count => will keep track of any elements that are not in ascending order.
+     * If the elements of arr are same count will not increase,
+     * If count still be 0 at the end of loop => arrays element are same order.
+     */
     @Then("items should sorted price in descending order")
     public void items_should_sorted_price_in_descending_order() {
+        expectedSortByPriceDesc = productPage.expectedSortedItemsByPriceDescendingOrder();
         int count = 0;
-        for (int i = 0; i < expectedDescendingOrder.length; i++) {
-            System.out.println(expectedDescendingOrder[i]);
-            if (expectedDescendingOrder[i] == productPage.actualSortedItemsByPrice()[i]){
-                //If the elements of arr are same count will not increase, and if count will be 0 at the end of loop it means arr<ys are same order.
+        for (int i = 0; i < expectedSortByPriceDesc.length; i++) {
+            if (expectedSortByPriceDesc[i] == productPage.actualSortedItemsByPrice()[i]){
             }else{
                 count++;
             }

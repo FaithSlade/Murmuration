@@ -28,6 +28,9 @@ public class LoginPage extends BasePage{
     @FindBy (xpath = "//span[@class='title']")
     public WebElement title;
 
+    @FindBy (xpath = "//button[@class='error-button']")
+    public WebElement errorButton;
+
     public void VerifyErrorMessage (String expectedMessage){
         Assert.assertEquals(expectedMessage,errorMessage.getText());
     }
@@ -38,5 +41,4 @@ public class LoginPage extends BasePage{
         password.sendKeys(ConfigurationReader.getProperty("password"));
         loginButton.click();
     }
-
 }

@@ -20,6 +20,7 @@ public class ProductPage extends BasePage {
 
     @FindBy(xpath = "//div[@class='inventory_item_img']")
     public List<WebElement> itemsImage;
+
     @FindBy(xpath = "//button[.='Add to cart']")
     public List<WebElement> addToCartButton;
 
@@ -31,7 +32,6 @@ public class ProductPage extends BasePage {
 
     @FindBy(className = "product_sort_container")
     public WebElement sortedButton;
-
     /**
      * WebElement on product detail page
      */
@@ -79,17 +79,19 @@ public class ProductPage extends BasePage {
     }
     /**
      * Method will return a new double[] with the elements in reverse order.
+     * numberOfLength => double[] price.length
      */
-    public double[] reverseDouble(double arr[], int numberOfLength) {
+    public double[] reverseDouble(double[] numArr, int numberOfLength) {
         double[] reverseNum = new double[numberOfLength];
         int temp = numberOfLength;
         for (int i = 0; i < numberOfLength; i++) {
-            reverseNum[temp - 1] = arr[i]; //first element will assign to last index
+            reverseNum[temp - 1] = numArr[i]; //first element will assign to last index
             temp = temp - 1;
         }
         return reverseNum;
     }
     /**
+     * This method is convert List<WebElement> -> double[]
      * This method will get text values of elements from List<WebElement>
      * Then store and return in double[]
      * Ideal -> for comparison with expectedSortedItemsByPrice() method
@@ -133,8 +135,9 @@ public class ProductPage extends BasePage {
     }
     /**
      * Method will return a new String[] with the elements in reverse order.
+     * numberOfLength => String[] itemName.length
      */
-    public String[] reverseString(String arr[], int numberOfLength) {
+    public String[] reverseString(String[] arr, int numberOfLength) {
         String[] reverseStr = new String[numberOfLength];
         int temp = numberOfLength;
         for (int i = 0; i < numberOfLength; i++) {
@@ -144,7 +147,8 @@ public class ProductPage extends BasePage {
         return reverseStr;
     }
     /**
-     * This method will get text values of elements from List<WebElement>
+     * This method is convert List<WebElement> -> String[]
+     * It will get text values of elements from List<WebElement>
      * Then store and return in String[]
      * Ideal -> for comparison with expectedSortedItemsByName() method
      */
@@ -155,11 +159,10 @@ public class ProductPage extends BasePage {
         }
         return itemName;
     }
-
-
-
-
-
+    /**
+     * This Method iterates through list of items by name
+     * Then verify product detail on each item is showed
+     */
     public void eachItemClickByName() {
         for (int i = 0; i < itemsName.size(); i++) {
             itemsName.get(i).click();
@@ -168,7 +171,10 @@ public class ProductPage extends BasePage {
             backToProductsButton.click();
         }
     }
-
+    /**
+     * This Method iterates through list of items by image
+     * Then verify product detail on each item is showed
+     */
     public void eachItemClickByImage() {
         for (int i = 0; i < itemsImage.size(); i++) {
             itemsImage.get(i).click();
@@ -177,6 +183,4 @@ public class ProductPage extends BasePage {
             backToProductsButton.click();
         }
     }
-
-
 }

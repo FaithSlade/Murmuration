@@ -13,7 +13,6 @@ import java.util.List;
 import java.util.concurrent.TimeUnit;
 
 public class LoginSwagLabs {
-
     LoginPage loginPage = new LoginPage();
 
     @Given("user is on the login page of the Swag Labs")
@@ -34,13 +33,13 @@ public class LoginSwagLabs {
     @When("user click log in button")
     public void user_click_log_in_button() {
         loginPage.loginButton.click();
-
     }
 
     @Then("user should see {string} message locked out")
     public void user_should_see_message_locked_out(String expectedMessage) {
         loginPage.VerifyErrorMessage(expectedMessage);
     }
+
     @Then("user should see {string} message")
     public void user_should_see_message(String expectedMessage) {
         loginPage.VerifyErrorMessage(expectedMessage);

@@ -15,7 +15,6 @@ Feature: As a user should be able to sorted the product
     When user select sorted by "Name (Z to A)" and click
     Then items should sorted in descending order
 
-
   Scenario: user be able to sorted product by price in ascending order
     When user select sorted by price "Price (low to high)" and click
     Then items should sorted by price in ascending order

@@ -15,6 +15,24 @@ public class CartPage extends BasePage{
         PageFactory.initElements(Driver.getDriver(),this);
     }
 
+    @FindBy(xpath = "//button[.='Remove']")
+    public List<WebElement> removeItemsButton;
+
+    @FindBy (id="checkout")
+    public WebElement checkoutButton;
+
+    @FindBy (id="continue-shopping")
+    public WebElement continueShoppingButton;
+
+    @FindBy(xpath = "//div[@class='inventory_item_desc']")
+    public List<WebElement> productDetailsList;
+
+    @FindBy(xpath = "//div[@class='cart_item']")
+    public List<WebElement> cartItems;
+
+    @FindBy(xpath = "//div[@class='cart_quantity']")
+    public List<WebElement> cartQuantity;
+
     @FindBy(name = "remove-sauce-labs-backpack")
     public WebElement backpackRemove;
 
@@ -33,32 +51,47 @@ public class CartPage extends BasePage{
     @FindBy(name = "remove-test.allthethings()-t-shirt-(red)")
     public WebElement allThingsRemove;
 
-    @FindBy(xpath = "//button[.='Remove']")
-    public List<WebElement> removeItemsButton;
-
-    @FindBy (id="checkout")
-    public WebElement checkoutButton;
-
-    @FindBy (id="continue-shopping")
-    public WebElement continueShoppingButton;
+    @FindBy(xpath = "//button[.='Add to cart']")
+    public List<WebElement> addToCartButton;
 
     /**
-     * remove List<WebElement> random using class(java)
+     * This method will remove List<WebElement> randomly by using Random class
+     * if condition to ensure that I am not click more elements than are available.
+     * This loop will iterate base on numberOfClick times.
+     * Then generates a random index from List<WebElement>, and used index to select an element.
      */
     public void removeRandomElement (List<WebElement> removeItemsButton,int numberOfClick){
         if(removeItemsButton.isEmpty()){
             return;
         }
-        Random random = new Random();
-        if(numberOfClick>removeItemsButton.size()){
-            numberOfClick=removeItemsButton.size();
+        if(numberOfClick > removeItemsButton.size()){
+            numberOfClick = removeItemsButton.size();
         }
+        Random random = new Random();
         for (int i = 0; i < numberOfClick; i++) {
             int randomIndex = random.nextInt(removeItemsButton.size()); // add a random index
-            WebElement element = removeItemsButton.get(randomIndex);
+            WebElement element = removeItemsButton.get(randomIndex); //retrieve webElement from index
             element.click();
-            BrowserUtil.waitFor(3);
+            //BrowserUtil.waitFor(2); just for check to see it click
         }
     }
 
+    /**
+     * This method will add List<WebElement> randomly by using Random class
+     * if condition to ensure that I am not click more elements than are available.
+     * This loop will iterate base on numberOfClick times.
+     * Then generates a random index from List<WebElement>, and used index to select an element.
+     */
+    public void addRandomElement (List<WebElement> addToCartButton,int numberOfClick) {
+        if (numberOfClick > addToCartButton.size()) {
+            numberOfClick = addToCartButton.size();
+        }
+        Random random = new Random();
+        for (int i = 0; i < numberOfClick; i++) {
+            int randomIndex = random.nextInt(addToCartButton.size()); // add a random index
+            WebElement element = addToCartButton.get(randomIndex); //retrieve webElement from index
+            element.click();
+            //BrowserUtil.waitFor(2); just for check to see it click
+        }
+    }
 }
