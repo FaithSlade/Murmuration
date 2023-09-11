@@ -11,9 +11,9 @@ public class TotalPricesAmountOfItems {
 
     @Then("verify calculate {int} items price in cart equal to total price before tax")
     public void verify_calculate_items_price_in_cart_equal_to_total_price_before_tax(Integer numberOfClick) {
-        String actualTotalPrice = totalPricesAmountPage.takeOffDollarSignAndLimitDecimal(totalPricesAmountPage.itemTotal);
-        String expectTotalPrice = totalPricesAmountPage.calculateTotalPriceOnCart(totalPricesAmountPage.priceList, numberOfClick);
-        Assert.assertEquals(expectTotalPrice, actualTotalPrice);
+        double actualTotalPrice = totalPricesAmountPage.takeOffDollarSign(totalPricesAmountPage.itemTotal);
+        double expectTotalPrice = totalPricesAmountPage.calculateTotalPriceOnCart(totalPricesAmountPage.priceList, numberOfClick);
+        Assert.assertTrue(expectTotalPrice==actualTotalPrice);
     }
 
     @Then("add tex and verify the total pay base on {int} items")

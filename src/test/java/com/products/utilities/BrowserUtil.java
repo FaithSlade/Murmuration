@@ -14,8 +14,6 @@ public class BrowserUtil {
 
     /**
      * return a list of string from a list of elements
-     * @param list of webElements
-     * @return list of string
      */
     public static List<String> getElementsText(List<WebElement> list) {
         List<String> elemTexts = new ArrayList<>();
@@ -42,7 +40,7 @@ public class BrowserUtil {
 
     /**
      * Performs a pause
-     * @param seconds
+     * param seconds
      */
     public static void waitFor(int seconds) {
         try {
