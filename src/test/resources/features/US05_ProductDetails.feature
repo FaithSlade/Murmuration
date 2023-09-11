@@ -1,4 +1,4 @@
-@wip
+
 Feature: On the Products page, verify that the products detail page
          can be reached by clicking on either the product name pr product image
   AC: user can click the product on product name
