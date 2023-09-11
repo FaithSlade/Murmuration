@@ -15,6 +15,8 @@ public class TotalPricesAmountPage extends BasePage {
         PageFactory.initElements(Driver.getDriver(), this);
     }
 
+    CartPage cartPage =new CartPage();
+
     @FindBy(xpath = "//div[@class='inventory_item_price']")
     public List<WebElement> priceList;
 
@@ -41,13 +43,9 @@ public class TotalPricesAmountPage extends BasePage {
      * Then iterate all items price if the items price show
      * Covert that price to String to take $ sign off from text price
      * Then convert String -> double to add each item price (calculate)
-     * <p>
-     * After get total price : Convert double -> string to find decimal index and limit decimal in 2 digit
-     * Check String totalPriceStr have decimal or not : if no skip this condition,
-     * Check at least 3 characters after the decimal point.
      */
-    public String calculateTotalPriceOnCart(List<WebElement> priceList, int numberOfClick) {
-        CartPage.addRandomElement(addToCartButton, numberOfClick);
+    public double calculateTotalPriceOnCart(List<WebElement> priceList, int numberOfClick) {
+        cartPage.addRandomElement(addToCartButton, numberOfClick);
 
         double totalPrice = 0.0;
         for (WebElement eachPrice : priceList) {
@@ -58,31 +56,22 @@ public class TotalPricesAmountPage extends BasePage {
                 totalPrice += itemPrice;
             }
         }
-        String totalPriceStr = String.valueOf(totalPrice);//convert double -> String
-        int decimal = totalPriceStr.indexOf('.');
-        if (decimal != -1 && decimal < totalPriceStr.length() - 3) {
-            return totalPriceStr.substring(0, decimal + 3);
-        }
-        return totalPriceStr;
+        return  totalPrice;
     }
 
     /**
-     * This method to remove $ sign of string and limit only 2 character after decimal
-     * Check String totalPriceStr have decimal or not : if no skip this condition,
-     * Check at least 3 characters after the decimal point.
+     * This method to remove $ sign of string
      * Argument as WebElement => tax, itemTotal, etc.
      */
-    public String takeOffDollarSignAndLimitDecimal(WebElement number) {
+    public double takeOffDollarSign(WebElement number) {
+        double totalPrice = 0;
         String str = number.getText();
 
         int dollarSign = str.indexOf('$');
         String actualTotalPrice = str.substring(dollarSign + 1);
+        totalPrice = Double.parseDouble(actualTotalPrice);
 
-        int decimal = str.indexOf('.');
-        if (decimal != -1 && decimal < str.length() - 3) {
-            return str.substring(dollarSign + 1, decimal + 3);
-        }
-        return actualTotalPrice;
+        return totalPrice;
     }
 
     /**
@@ -91,15 +80,14 @@ public class TotalPricesAmountPage extends BasePage {
      * Then compare with actual total using compareDouble() method
      */
     public void verifyTotalPayWithTax(int numberOfClick) {
-        double netPrice = Double.parseDouble(calculateTotalPriceOnCart(priceList, numberOfClick));
-        double texNum = Double.parseDouble(takeOffDollarSignAndLimitDecimal(tax));//String -> double
+        double netPrice = calculateTotalPriceOnCart(priceList, numberOfClick);
+        double texNum = takeOffDollarSign(tax);//String -> double
         double priceWithTax = texNum + netPrice;//calculate
 
-        String actualPay = takeOffDollarSignAndLimitDecimal(totalPay);
-        double actualTotalPay = Double.parseDouble(actualPay);
+        double actualTotalPay = takeOffDollarSign(totalPay);
 
         String expectedPay = compareDouble(priceWithTax,actualTotalPay);
-        Assert.assertEquals(expectedPay, takeOffDollarSignAndLimitDecimal(totalPay));
+        Assert.assertEquals(expectedPay, String.valueOf(takeOffDollarSign(totalPay)));
     }
 
     /**
