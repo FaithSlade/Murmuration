@@ -1,4 +1,4 @@
-@wip
+
 Feature: Logout of site.
   AC: As a user should be able to logout of site from any page
 
